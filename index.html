@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SVG Basics</title>
+</head>
+<body>
+  
+    <div class="canvas">
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+    </div>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBUPWwzkW8Vj90o_mLFfQzW9dgcgPz86_s",
+    authDomain: "netninja-18c70.firebaseapp.com",
+    databaseURL: "https://netninja-18c70.firebaseio.com",
+    projectId: "netninja-18c70",
+    storageBucket: "netninja-18c70.appspot.com",
+    messagingSenderId: "946108152347",
+    appId: "1:946108152347:web:badff693d6bb364ca296be",
+    measurementId: "G-WLST83Q1B9"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+  const db = firebase.firestore();
+
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

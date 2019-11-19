@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+         <!-- Compiled and minified CSS -->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Ninja Wonga</title>
+    <style>
+    h2, p{
+        margin: 10px 0;
+    }
+    header{
+        margin-bottom: 40px;
+    }</style>
+    
+</head>
+
+
+<body class="indigo">
+     <header class="indigo darken-1 section">
+         <h2 class="center white-text">Ninja Wonga</h2>
+         <p class="flow-text grey-text center text-lighten-2">Monthly Money Tracker for ninjas...</p>
+     </header>
+
+<div class="container section">
+<div class="row">   
+    <div class="col s12 m6">
+        <form class="card z-depth-0">
+            <div class="card-content">
+                <span class="card-title indigo-text">  
+                Add Item:
+            </span>
+            <div class="input-field">
+                <input type="text" id="name">
+                <label for="name">Item Name</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="cost">
+                <label for="name">Item cost (£)</label>
+            </div>
+            <div class="input-field center">
+               <button class="btn-large pink white-text">Add Item</button>
+            </div>
+            <div class="input-field center">
+               <p class="red-text" id="error">test</p>
+             </div>
+            </div>
+        </form>
+    </div>
+    <div class="col s12 m5 push-m1"></div>
+    <div class="canvas">
+
+    </div>
+</div>
+
+
+</div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBUPWwzkW8Vj90o_mLFfQzW9dgcgPz86_s",
+        authDomain: "netninja-18c70.firebaseapp.com",
+        databaseURL: "https://netninja-18c70.firebaseio.com",
+        projectId: "netninja-18c70",
+        storageBucket: "netninja-18c70.appspot.com",
+        messagingSenderId: "946108152347",
+        appId: "1:946108152347:web:f2c3a0697737b5f2a296be",
+        measurementId: "G-E2DLYP206Q"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+   
+    </script>   
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="index.js"></script>
+    <script src="graph.js"></script>
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
