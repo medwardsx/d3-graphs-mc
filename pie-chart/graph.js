@@ -1,5 +1,5 @@
 const dims = { height: 300, width: 300, radius: 150}
-const cent = { x: (dims.width / 2 + 5), y: (dims.height / 2 + 5)};
+const cent = { x: (dims.width / 2 + 100), y: (dims.height / 2 + 5)};
 
 const svg = d3.select('.canvas').append('svg')
 .attr('width', dims.width + 150)
@@ -20,8 +20,12 @@ const pie = d3.pie()
 // ])
 
 const arcPath = d3.arc()
-.outerRadius(dims.radius)
+.outerRadius(dims.radius )
 .innerRadius(dims.radius / 2)
+
+const colour = d3.scaleOrdinal(d3['schemeSet3']);
+
+console.log(colour);
 
 console.log(arcPath);
 
@@ -31,11 +35,41 @@ console.log(arcPath);
 const update = (data) => {
     console.log(data);
 
-    //join enahnced (pie) data to path elements
+//update color scale domain
+colour.domain(data.map((d) => {
+return d.name
+})) 
 
+
+
+
+
+
+    //join enahnced (pie) data to path elements
     const paths = graph.selectAll('path')
-    .data(pie(data))
-    
+    .data(pie(data));
+
+   paths.exit()
+   .transition().duration(750)
+   .attrTween("d", arcTweenExit)
+   .remove()
+
+   //updates current attrs in dom with new paths 
+   paths.attr('d', arcPath)
+
+   //appends new ones / virtual
+    paths.enter()
+    .append('path')
+    .attr('class', 'arc')
+    .attr('d', arcPath)
+    .attr('stroke', '#fff')
+    .attr('stroke-width', 3)
+    .attr('fill', d => colour(d.data.name))
+    .transition().duration(750)
+    .attrTween("d", arcTweenEnter)
+
+
+
     console.log(paths.enter());
 }
 
@@ -66,3 +100,35 @@ db.collection('expenses').onSnapshot((res)=>{
     
     update(data);
 })
+
+
+
+const arcTweenEnter = (d) => {
+
+    var i = d3.interpolate(d.endAngle, d.startAngle);
+  
+    // t = ticker value between 0 and 1 how far in transition you are?
+   // d = individual piece from data
+  
+    return function(t){
+        console.log(t);
+        console.log(d);
+      d.startAngle = i(t);
+      return arcPath(d)
+    }
+  }
+
+  const arcTweenExit = (d) => {
+
+    var i = d3.interpolate(d.startAngle, d.endAngle);
+  
+    // t = ticker value between 0 and 1 how far in transition you are?
+   // d = individual piece from data
+  
+    return function(t){
+        console.log(t);
+        console.log(d);
+      d.startAngle = i(t);
+      return arcPath(d)
+    }
+  }
