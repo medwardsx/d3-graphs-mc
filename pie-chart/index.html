@@ -15,7 +15,7 @@
         margin-bottom: 40px;
     }</style>
     
-</head>
+</head>  
 
 
 <body class="indigo">
@@ -41,11 +41,15 @@
                 <label for="name">Item cost (£)</label>
             </div>
             <div class="input-field center">
-               <button class="btn-large pink white-text">Add Item</button>
+               <button class="btn-large pink white-text" type="submit" value="post">Add Item</button>
             </div>
+            <div class="input-field center">
+                <button class="btn-large pink white-text" type="submit" value="delete">Delete</button>
+             </div>
             <div class="input-field center">
                <p class="red-text" id="error">test</p>
              </div>
+           <button >Delete</button>
             </div>
         </form>
     </div>
@@ -60,6 +64,7 @@
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
@@ -86,9 +91,11 @@
     </script>   
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
+         <!-- Compiled and minified JavaScript -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
     <script src="index.js"></script>
     <script src="graph.js"></script>
-     <!-- Compiled and minified JavaScript -->
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </body>
 </html>

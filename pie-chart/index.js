@@ -3,6 +3,7 @@ const name = document.querySelector('#name');
 const cost = document.querySelector('#cost');
 const error = document.querySelector('#error');
 
+
 form.addEventListener('submit', (e)=>{
    e.preventDefault();
 
@@ -11,12 +12,18 @@ form.addEventListener('submit', (e)=>{
           name: name.value,
           cost: +cost.value
       }
-      db.collection('expenses').add(item).then((res) => {
+      db.collection('expenses').doc(name.value).set(item).then((res) => {
         console.log(res);
         name.value = "";
         cost.value = "";
     })
-   } else {
+}
+//     if (!cost.value) {
+//       db.collection('expenses').remove(name.value);
+    
+//    } 
+
+else {
        error.textContent = 'Enter values'
    }
 
@@ -24,3 +31,13 @@ form.addEventListener('submit', (e)=>{
 })
 
 
+
+// trying to do a delete
+// db.collection('expenses').get().then((res) => {
+//     console.log(res);
+//     var data = [];
+//     res.docs.forEach((doc) => {
+//         data.push(doc.data())
+//         console.log(data);
+//     })
+// })

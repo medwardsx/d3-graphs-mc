@@ -17,13 +17,25 @@ const pie = d3.pie()
 //     { name: 'rent', cost:500},
 //     { name: 'bills', cost:300},
 //     { name: 'gaming', cost:200}
-// ])
+// ]) 
 
 const arcPath = d3.arc()
 .outerRadius(dims.radius )
 .innerRadius(dims.radius / 2)
 
 const colour = d3.scaleOrdinal(d3['schemeSet3']);
+
+//legend setup
+
+const legendGroup = svg.append('g')
+.attr('transform', `translate(${dims.width + 120}, 10)`)
+
+const legend = d3.legendColor()
+.shape('circle')
+.shapePadding(10)
+.scale(colour);
+
+
 
 console.log(colour);
 
@@ -41,7 +53,10 @@ return d.name
 })) 
 
 
+// update and call legend
 
+legendGroup.call(legend);
+legendGroup.selectAll('text').attr('fill', 'white');
 
 
 
@@ -56,15 +71,23 @@ return d.name
 
    //updates current attrs in dom with new paths 
    paths.attr('d', arcPath)
+   .transition()
+   .duration(750)
+   .attrTween('d', arcTweenUpdate);
 
    //appends new ones / virtual
     paths.enter()
     .append('path')
     .attr('class', 'arc')
+    //dont need this 'd' arcpath below cause done above i think?
     .attr('d', arcPath)
     .attr('stroke', '#fff')
     .attr('stroke-width', 3)
     .attr('fill', d => colour(d.data.name))
+    .each(function(d){
+        //this = current path
+        this._current = d
+    })
     .transition().duration(750)
     .attrTween("d", arcTweenEnter)
 
@@ -111,8 +134,8 @@ const arcTweenEnter = (d) => {
    // d = individual piece from data
   
     return function(t){
-        console.log(t);
-        console.log(d);
+        // console.log(t);
+        // console.log(d);
       d.startAngle = i(t);
       return arcPath(d)
     }
@@ -126,9 +149,28 @@ const arcTweenEnter = (d) => {
    // d = individual piece from data
   
     return function(t){
-        console.log(t);
-        console.log(d);
+        // console.log(t);
+        // console.log(d);
       d.startAngle = i(t);
       return arcPath(d)
     }
+  }
+
+  function arcTweenUpdate(d) {
+      // d here = updated data
+      // original data stored above in each()
+      //current state to new state of each data piece
+var i = d3.interpolate(this._current, d);
+//this = current , d = next angle
+      console.log(this._current, d);
+
+      //update current prop with new updated data
+
+      this._current = d; // can also write this._current = i(1);
+
+return function(t){
+    //redraw paths with arc
+    return arcPath(i(t));
+}
+
   }
