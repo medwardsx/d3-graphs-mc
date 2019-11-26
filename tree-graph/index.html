@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+         <!-- Compiled and minified CSS -->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+         <link rel="stylesheet" href="style.css">
+    <title>Ninja Corp!</title>
+</head>  
+
+<body class="">
+    
+
+<div class="pink section">
+    <h2 class="white-text center">
+        Ninja Corp!
+    </h2>
+</div>
+
+<div class="grey lighten-3 section grey-text" style="position: relative">
+    <p class="flow-text center">
+        The Number ONE Ninja Company
+    </p>
+    <a href="#modal" class="btn-floating btn-large halfway-fab pink modal-trigger">
+        <i class="material-icons">+</i>
+    </a>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h4 class="pink-text center">Add New Employee</h4>
+        <form action="">
+            <div class="input-field">
+                <input type="text" id="name" placeholder="Employee Name">
+            </div>
+            <div class="input-field">
+                <input type="text" id="parent" placeholder="Reports to...">
+            </div>
+            <div class="input-field">
+                <input type="text" id="department" placeholder="Department">
+            </div>
+            <div class="input-field">
+                    <button class="btn pink white-text">Add Employee</button>
+                </div>
+    </form>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="canvas"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBUPWwzkW8Vj90o_mLFfQzW9dgcgPz86_s",
+        authDomain: "netninja-18c70.firebaseapp.com",
+        databaseURL: "https://netninja-18c70.firebaseio.com",
+        projectId: "netninja-18c70",
+        storageBucket: "netninja-18c70.appspot.com",
+        messagingSenderId: "946108152347",
+        appId: "1:946108152347:web:f2c3a0697737b5f2a296be",
+        measurementId: "G-E2DLYP206Q"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+   
+    </script>   
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+         <!-- Compiled and minified JavaScript -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    <script src="index.js"></script>
+    <script src="graph.js"></script>
+
+</body>
+</html>

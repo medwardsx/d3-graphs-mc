@@ -103,6 +103,8 @@ legendGroup.selectAll('text').attr('fill', 'white');
     .transition().duration(750)
     .attrTween("d", arcTweenEnter)
 
+
+
 //add events
 
 graph.selectAll('path')

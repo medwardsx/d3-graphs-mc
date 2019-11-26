@@ -26,14 +26,14 @@ path {
   stroke-width: 2px;
 }
 </style>
-<svg width="960" height="500"></svg>
+<svg width="1960" height="800"></svg>
 <script src="//d3js.org/d3.v4.min.js"></script>
 <script>
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height"),
-    radius = 32;
-var circles = d3.range(20).map(function() {
+    radius = 5;
+var circles = d3.range(100).map(function() {
   return {
     x: Math.round(Math.random() * (width - radius * 2) + radius),
     y: Math.round(Math.random() * (height - radius * 2) + radius)

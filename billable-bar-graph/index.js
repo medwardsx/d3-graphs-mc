@@ -1,15 +1,60 @@
+//colourLegend handlers
+
+
+const colourLegend = (selection, props) => {
+  const {
+    colorScale,
+    width,
+    height,
+  } = props;
+
+  const groups = selection.selectAll('g')
+    .data(colorScale.domain());
+
+
+  const groupsEnter = groups
+    .enter().append('g')
+      .attr('class', 'tick');
+  groupsEnter
+    .merge(groups)
+      .attr('transform', (d, i) =>
+        `translate(${i * 100}, ${0})`
+      );
+  groups.exit().remove();
+
+  groupsEnter.append('rect')
+  .attr('width', width)
+  .attr('height', height)
+  .attr('stroke', 'black')
+  .attr('stroke-width', 2)
+
+    // .merge(groups.select('rect'))
+      .attr('fill', colorScale);
+
+  groupsEnter.append('text')
+    .merge(groups.select('text'))
+      .text(d => d)
+      .attr('dy', '0.32em')
+      .attr('x', 30)
+      .attr('y', 10)
+}
+
+
+
+
+
 
 
 
 // select the svg conatiner first
 const svg = d3.select('.canvas')
 .append('svg')
-.attr('width', 600)
-.attr('height', 600);
+.attr('width', 1000)
+.attr('height', 1000);
 
 // create margins and dimensions
 
-const margin = {top: 20, right: 20, bottom: 100, left: 100}
+const margin = {top: 150, right: 20, bottom: 100, left: 200}
 const graphWidth = 600 - margin.left - margin.right
 const graphHeight = 600 - margin.top - margin.bottom
 
@@ -20,7 +65,13 @@ const graph = svg.append('g')
 
 
 const xAxisGroup = graph.append('g').attr('transform', `translate(0, ${graphHeight})`)
+.attr('stroke', 'black')
+.attr('stroke-width', 1.2)
 const yAxisGroup = graph.append('g')
+.attr('stroke', 'black')
+.attr('stroke-width', 1.2)
+
+
 
 const y = d3.scaleLinear() 
 .range([graphHeight, 0]); 
@@ -33,26 +84,39 @@ const y = d3.scaleLinear()
 //create and call axis
 const xAxis = d3.axisBottom(x)
 const yAxis = d3.axisLeft(y)
-.ticks(3)
-.tickFormat(d => d + ' orders');
+.ticks(10)
+.tickFormat(d => d + ' order');
 
-xAxisGroup.selectAll('text')
-.attr('transform', 'rotate(-40)')
-.attr('text-anchor', 'end')
-.attr('fill', 'orange')
+// xAxisGroup.selectAll('text')
+// .attr('transform', 'rotate(-40)')
+// .attr('text-anchor', 'end')
 
+
+
+
+
+yAxisGroup.append("text")
+.attr('transform', 'rotate(-90)')
+.attr("y", -70)//magic number here
+.attr("x",  -250)
+.attr('text-anchor', 'start')
+
+.attr("class", "myLabel")//easy to style with CSS
+.text("Proportion (%) of patients in remission")
 
 
 
   //update function
   
   const update = (data) => {
-    
+
     //updating scale domains
-    y.domain([0, d3.max(data, d => d.orders)])
-    x.domain(data.map(item => item.name))
+    //100 can be d3.max(data, d => d.order)] for scaling
+    y.domain([0, 100])
+    //manually ordered from d => data.name
+    x.domain(['Month 2', 'Month 12', 'Month 24', 'Month 36'])
    //join the data to rects
-   
+
     const rects = graph.selectAll('rect')
     .data(data);
 
@@ -65,11 +129,12 @@ xAxisGroup.selectAll('text')
 
     //attr current shapes in dom from start e.g in html or appended
     rects.attr('width', x.bandwidth)
-    .attr('fill', 'orange') 
+    .attr('fill', 'green') 
     .attr('x', d=>x(d.name))
     .transition().duration(2000)
-    .attr("height", d => graphHeight - y(d.orders))
-    .attr('y', d=>y(d.orders))
+    .attr("height", d => graphHeight - y(d.order))
+    .attr('y', d=>y(d.order))
+    
 
 
     // .attr('x', d => x(d.name))
@@ -81,16 +146,57 @@ xAxisGroup.selectAll('text')
       .attr('width', x.bandwidth)
       //set 0 initial to transition
      .attr('height', 0)
+     .attr('stroke', 'black')
+     .attr('stroke-width', 2)
     //   .attr("height", d => graphHeight -  y(d.orders))
-      .attr('fill', 'orange')
+      .attr('fill', 'green')
       .attr('x', (d) => x(d.name))
     .attr('y', graphHeight)
     .transition().duration(2000)
     .attrTween('width', widthTween)
     //final transition values
-          .attr('y', d=>y(d.orders))
-          .attr("height", d => graphHeight - y(d.orders))
+          .attr('y', d=>y(d.order))
+          .attr("height", d => graphHeight - y(d.order))
+      
+          rects.enter()
+          .append('rect')
+            .attr('width', x.bandwidth)
+            //set 0 initial to transition
+           .attr('height', 0)
+           .attr('stroke', 'black')
+           .attr('stroke-width', 2)
+          //   .attr("height", d => graphHeight -  y(d.orders))
+            .attr('fill', '#8FBC8F')
+            .attr('x', (d) => x(d.name))
+          .attr('y', graphHeight)
+          .transition().duration(2000)
+          .attrTween('width', widthTween)
+          //final transition values
+                .attr('y', d=>y(d.order2))
+                .attr("height", d => graphHeight - y(d.order2))
+                .attr('transform', `translate(47.5, 0)`)
+                
 
+
+
+
+
+                //legend 
+                const colorScale = d3.scaleOrdinal()
+                .domain(['Observed', 'NRI-LOFC'])
+                .range(['green', '#8FBC8F']);
+              
+              svg.append('g')
+                  .attr('transform', `translate(${(graphWidth + margin.left + margin.right) / 2}, 100)`)
+                  .call(colourLegend, {
+                    colorScale,
+                    width: 20,
+                    height: 20
+                  });
+
+               
+              
+                  
       // call puts inside the group
       xAxisGroup.call(xAxis)
       yAxisGroup.call(yAxis)
@@ -102,7 +208,7 @@ xAxisGroup.selectAll('text')
   
   var data = []; 
 
-  db.collection('dishes').onSnapshot(res => {
+  db.collection('billable-remission').onSnapshot(res => {
       //docChanges give us the difference between first snapshot (nothing) and second get which is our data basically
       console.log(res.docChanges());
 
@@ -160,10 +266,9 @@ const widthTween = (data) => {
 
   let i = d3.interpolate(0, x.bandwidth());
 
-  
-
   return function(t){
-    return i(t);
+    console.log(i, t)
+    return i(t) / 2;
   }
 
 }

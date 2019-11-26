@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Dojo</title>
+</head>
+<body class="grey darken-4">
+    <div class="nav z-depth-0">
+      <div class="nav z-depth-0">
+       <div class="section center">
+         <h3 class="white-text center">- The Dojo -</h3>
+       </div>
+      </div>
+    </div>
+
+    <div class="section center">
+        <p class="grey-text flow-text">
+         A fitness tracker for ninjas.
+        </p>
+    </div>
+
+    <div class="container section">
+        <div class="row">
+            <div class="col s12 l5">
+                <button data-activity="cycling" class="active">Cycling</button>
+                <button data-activity="running">Running</button>
+                <button data-activity="swimming">Swimming</button>
+                <button data-activity="walking">Walking</button>
+            </div>
+                <div class="col s12 l6.push-l1">
+                    <div class="canvas">
+
+                
+                </div>
+            </div>
+            <div class="row">
+                <form action="" class="col m6 push-m3">
+                    <p class="flow-text grey-text">How much <span>cycling</span> having you done today?</p>
+                    <input type="text" class="grey-text" id="cycling" placeholder="Distance in metres"/>
+                    <p class="center pink-text error text-lighten-1">error</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyBUPWwzkW8Vj90o_mLFfQzW9dgcgPz86_s",
+    authDomain: "netninja-18c70.firebaseapp.com",
+    databaseURL: "https://netninja-18c70.firebaseio.com",
+    projectId: "netninja-18c70",
+    storageBucket: "netninja-18c70.appspot.com",
+    messagingSenderId: "946108152347",
+    appId: "1:946108152347:web:633d375a7b3e689ba296be",
+    measurementId: "G-9MDS0BMQVG"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore(); 
+</script>
+
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="index.js"></script>
+    <script src="graph.js"></script>
+</body>
+</html>
