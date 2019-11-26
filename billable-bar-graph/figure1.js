@@ -207,10 +207,7 @@ yAxisGroup.append("text")
                     width: 20,
                     height: 20
                   });
-
-               
-              
-                  
+    
       // call puts inside the group
       xAxisGroup.call(xAxis)
       yAxisGroup.call(yAxis)
