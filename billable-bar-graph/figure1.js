@@ -47,7 +47,7 @@ const colourLegend = (selection, props) => {
 
 
 // select the svg conatiner first
-const svg = d3.select('.canvas')
+const svg = d3.select('.figure1')
 .append('svg')
 .attr('width', 1000)
 .attr('height', 1000);
@@ -85,7 +85,7 @@ const y = d3.scaleLinear()
 const xAxis = d3.axisBottom(x)
 const yAxis = d3.axisLeft(y)
 .ticks(10)
-.tickFormat(d => d + ' order');
+.tickFormat(d => d);
 
 // xAxisGroup.selectAll('text')
 // .attr('transform', 'rotate(-40)')
@@ -175,8 +175,22 @@ yAxisGroup.append("text")
                 .attr('y', d=>y(d.order2))
                 .attr("height", d => graphHeight - y(d.order2))
                 .attr('transform', `translate(47.5, 0)`)
-                
+        
+             
 
+
+                rects.enter().append("text")
+                .attr("class", "bar")
+                .attr("text-anchor", "middle")
+                .attr("x", function(d) { return x(d.name) + 22.5})
+                .attr("y", function(d) { return  y(d.order) - 7; })
+                .text(function(d) { return d.order; })
+                rects.enter().append("text")
+                .attr("class", "bar")
+                .attr("text-anchor", "middle")
+                .attr("x", function(d) { return x(d.name) + 72.5})
+                .attr("y", function(d) { return  y(d.order2) - 7; })
+                .text(function(d) { return d.order2; });
 
 
 
